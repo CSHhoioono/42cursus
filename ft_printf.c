@@ -6,7 +6,7 @@
 /*   By: soochoi <soochoi@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 18:40:12 by soochoi           #+#    #+#             */
-/*   Updated: 2024/11/06 20:38:48 by soochoi          ###   ########.fr       */
+/*   Updated: 2024/11/07 19:51:04 by soochoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -27,7 +27,7 @@ int	ft_tag_printf(const char *format, va_list ap)
 {
 	int		lenth;
 	t_tag	tag;
-	
+
 	lenth = 0;
 	while (*format)
 	{
@@ -35,12 +35,15 @@ int	ft_tag_printf(const char *format, va_list ap)
 		if (*format == '%')
 		{
 			format++;
-			if(!(*format))
+			if (!(*format))
 				break ;
-			//flag를 확인하는 함수 매개변수를 받을 때, 이중포인터로 받아서 format의 위치 이동이 필요
-			//폭을 확인 atoi or isdigit이용 -> 반복해서 (num*10)
-			//.(dot)확인+뒤에 수가 있는지 없는지 확인 -> 없으면 무시
-			lenth += format_specifiers(ap, *format);
+			ft_check_flag(&format, tag);
+			if (ft_check_width(&format, tag) == -1)
+				return (-1);
+			if (ft_check_precision(&format, tag) == -1)
+				return (-1);
+			if (ft_format_specifiers(ap, *format, &lenth))
+				return (-1);
 		}
 		else
 			lenth += ft_putchar(*format);
@@ -51,7 +54,7 @@ int	ft_tag_printf(const char *format, va_list ap)
 
 int	ft_printf(const char *format, ...)
 {
-	int	lenth;
+	int		lenth;
 	va_list	ap;
 
 	if (!format)

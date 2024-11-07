@@ -6,7 +6,7 @@
 #    By: soochoi <soochoi@student.42gyeongsan.      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/28 17:55:55 by soochoi           #+#    #+#              #
-#    Updated: 2024/11/06 17:48:40 by soochoi          ###   ########.fr        #
+#    Updated: 2024/11/07 19:20:00 by soochoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,21 +20,25 @@ ARFLAGS = -rcs
 NAME = libftprintf.a
 SRCS = ft_printf.c ft_printf_format.c ft_printf_format_specifiers_1.c\
 	   \
+SRCS_B = ft_printf_format_bonus.c
 OBJS = $(SRCS:.c=.o)
+OBJS_B = $(SRCS_B:.c=.o)
 
 %.o : %.c ft_printf.h
 	$(CC) $(CFLAGS) -c $<
 
 all : $(NAME)
 
-$(NAME) : $(OBJS) $(LIBFT)
+bonus : all
+
+$(NAME) : $(OBJS) $(OBJS_B) $(LIBFT)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(LIBFT) :
 	$(MAKE) -C $(LIBFT_DIR) $@
 
 clean :
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(OBJS_B)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean : clean
@@ -43,4 +47,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus

@@ -6,7 +6,7 @@
 /*   By: soochoi <soochoi@student.42gyeongsan.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:27:10 by soochoi           #+#    #+#             */
-/*   Updated: 2024/11/06 18:57:36 by soochoi          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:43:58 by soochoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -36,6 +36,8 @@ int	ft_putstr(const char *s)
 }
 
 int	ft_putnbr(const char *s)
+{
+}
 
 int	ft_putptr(const char *s)
 //X일 경우 0123456789ABCDEF로 base를 초기화
